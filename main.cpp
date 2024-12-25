@@ -7,11 +7,14 @@ struct Student {
     int rollNo;
     int totalMarks;
 };
-
 const int Max_Student = 100;
-//protypes declaration
+
+//protypal declaration
 void add(Student students[],int &count);
 void display(Student students[],int count);
+void search(Student students[],int count);
+void findAndUpdateStudent(Student students[], int count);
+
 
 
 int main() {
@@ -30,11 +33,11 @@ int choice;
         cin >> choice;
 
         switch(choice) {
-            case 1: add(students, studentCount);
+            case 1: add(students, studentCount);// champak[] = students // &count = studentCount
                             break;
             case 2: display(students, studentCount);
                             break;
-            case 3: cout<< "search student" << endl;
+            case 3: search(students, studentCount);
                             break;
             case 4: cout<< "update student" << endl;
                             break;
@@ -46,7 +49,7 @@ int choice;
     return 0;
 }
 
-void add(Student students[],int &count) {
+void add(Student champak[],int &count) {
     if (count >= Max_Student) {
         cout<< "you cant add students more as the max count limit reached"<< endl;
         return;
@@ -54,11 +57,11 @@ void add(Student students[],int &count) {
     cout<<"Enter the details of"<< count + 1 <<"th student" << endl;
     cout<< "Enter the name: ";
     cin.ignore();
-    getline(cin, students[count].name);
-    cout << "Enter roll No: ";
-    cin >> students[count].rollNo;
+    getline(cin, champak[count].name);
+    cout << "Enter roll No(it should be unique): ";
+    cin >> champak[count].rollNo;
     cout << "Enter total marks: ";
-    cin >> students[count].totalMarks;
+    cin >> champak[count].totalMarks;
     count++;// count + 1
     cout <<"student added";
 }
@@ -71,5 +74,56 @@ void display(Student students[],int count) {
         cout <<"roll no.: "<<students[i].rollNo<< endl;
         cout <<"total Marks: "<<students[i].totalMarks<< endl<< endl;
     }
-
 }
+
+void search(Student students[],int count) {
+    if (count == 0) {
+        cout << "there is no student in the record" << endl;
+    }
+
+    int rollNo;
+    cout << "Enter the roll number of the student you have to find: " << endl;
+    cin >> rollNo;
+    for (int i = 0; i < count; i++) {
+        if (students[i].rollNo == rollNo) {
+            cout << "Student found" << endl;
+            cout <<"name: "<<students[i].name<< endl;
+            cout <<"roll no.: "<<students[i].rollNo<< endl;
+            cout <<"total Marks: "<<students[i].totalMarks<< endl;
+            return;
+        }
+    }
+    cout << "student not found" << endl;
+}
+
+void findAndUpdateStudent(Student students[], int count) {
+    if (count == 0) {
+        cout << "No student records to update." << endl;
+        return;
+    }
+
+    int rollNo;
+    cout << "\nEnter the roll number of the student to update: ";
+    cin >> rollNo;
+//recreate this function using switch case and add search by name and update functionality
+
+    for (int i = 0; i < count; i++) {
+        if (students[i].rollNo == rollNo) {
+            cout << "\nUpdating record for " << students[i].name << ":" << endl;
+            cout << "Enter new name: ";
+            cin.ignore();
+            getline(cin, students[i].name);
+            cout << "Enter new marks: ";
+            cin >> students[i].totalMarks;
+
+            cout << "Student record updated successfully!" << endl;
+            return;
+        }
+    }
+
+    cout << "Student with roll number " << rollNo << " not found." << endl;
+}
+
+
+
+
